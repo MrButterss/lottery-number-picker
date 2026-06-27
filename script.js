@@ -1,5 +1,6 @@
 const STORAGE_KEY = 'lotary_draw_history';
 const SPEED_STORAGE_KEY = 'lotary_speed_mode';
+const THEME_STORAGE_KEY = 'lotary_theme';
 const CHAR_DELAY_MS = 1500;
 const SPIN_INTERVAL_MS = 60;
 const LETTERS = 'PU';
@@ -16,6 +17,7 @@ let history = loadHistory();
 let revealedCurrent = true;
 let animating = false;
 let speedMode = loadSpeedMode();
+let theme = loadTheme();
 
 function loadHistory() {
   try {
@@ -36,6 +38,14 @@ function loadSpeedMode() {
 
 function saveSpeedMode() {
   localStorage.setItem(SPEED_STORAGE_KEY, speedMode);
+}
+
+function loadTheme() {
+  return localStorage.getItem(THEME_STORAGE_KEY) === 'light' ? 'light' : 'dark';
+}
+
+function saveTheme() {
+  localStorage.setItem(THEME_STORAGE_KEY, theme);
 }
 
 function isAvailable(number) {
@@ -76,12 +86,24 @@ const historyListEl = document.getElementById('historyList');
 const resetBtn = document.getElementById('resetBtn');
 const slowBtn = document.getElementById('slowBtn');
 const fastBtn = document.getElementById('fastBtn');
+const themeToggle = document.getElementById('themeToggle');
 
 function clearSlots() {
   slotEls.forEach(el => {
     el.textContent = ' ';
-    el.classList.remove('spinning', 'landed', 'prefix-P', 'prefix-U');
+    el.classList.remove('spinning', 'landed', 'prefix-P', 'prefix-U', 'not-present');
   });
+}
+
+function applyTheme() {
+  document.documentElement.setAttribute('data-theme', theme);
+  themeToggle.textContent = theme === 'dark' ? '☀️ Light' : '🌙 Dark';
+}
+
+function toggleTheme() {
+  theme = theme === 'dark' ? 'light' : 'dark';
+  saveTheme();
+  applyTheme();
 }
 
 function drawNumber() {
@@ -195,13 +217,16 @@ function render() {
       const chars = latest.number.split('');
       slotEls.forEach((el, i) => {
         el.textContent = chars[i];
-        el.classList.remove('spinning', 'prefix-P', 'prefix-U');
+        el.classList.remove('spinning', 'prefix-P', 'prefix-U', 'not-present');
         el.classList.add('landed', prefixClass(latest.number));
+        if (latest.status === 'absent') {
+          el.classList.add('not-present');
+        }
       });
     } else if (!latest) {
       slotEls.forEach(el => {
         el.textContent = ' ';
-        el.classList.remove('spinning', 'landed', 'prefix-P', 'prefix-U');
+        el.classList.remove('spinning', 'landed', 'prefix-P', 'prefix-U', 'not-present');
       });
     }
   }
@@ -262,5 +287,7 @@ notPresentBtn.addEventListener('click', () => resolveCurrent('absent'));
 resetBtn.addEventListener('click', resetAll);
 slowBtn.addEventListener('click', () => setSpeedMode('slow'));
 fastBtn.addEventListener('click', () => setSpeedMode('fast'));
+themeToggle.addEventListener('click', toggleTheme);
 
+applyTheme();
 render();

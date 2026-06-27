@@ -1,3 +1,29 @@
+:root {
+  --bg: #1b1f2a;
+  --card-bg: #242a38;
+  --panel-bg: #161a24;
+  --text: #eef1f7;
+  --muted-text: #9aa4b8;
+  --border-strong: #4b5468;
+  --border-subtle: #343c4f;
+  --slot-bg: #0e1118;
+  --slot-text: #ffffff;
+  --shadow: rgba(0, 0, 0, 0.45);
+}
+
+:root[data-theme='light'] {
+  --bg: #eef1f6;
+  --card-bg: #ffffff;
+  --panel-bg: #f1f3f8;
+  --text: #1b1f2a;
+  --muted-text: #6b7384;
+  --border-strong: #c7ccd9;
+  --border-subtle: #dde1ea;
+  --slot-bg: #f7f8fb;
+  --slot-text: #1b1f2a;
+  --shadow: rgba(15, 23, 42, 0.12);
+}
+
 * {
   box-sizing: border-box;
 }
@@ -8,29 +34,52 @@ body {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding: 1.25rem;
-  background: #1b1f2a;
-  color: #eef1f7;
+  padding: clamp(0.75rem, 3vw, 1.25rem);
+  background: var(--bg);
+  color: var(--text);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .card {
   width: 100%;
   max-width: 1400px;
-  background: #242a38;
-  border-radius: 28px;
-  padding: 2.5rem 4rem;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+  background: var(--card-bg);
+  border-radius: clamp(16px, 3vw, 28px);
+  padding: clamp(1.25rem, 5vw, 2.5rem) clamp(1rem, 6vw, 4rem);
+  box-shadow: 0 20px 60px var(--shadow);
   text-align: center;
+  transition: background-color 0.2s ease;
+}
+
+.top-bar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.5rem;
+}
+
+.theme-toggle {
+  background: none;
+  border: 2px solid var(--border-strong);
+  border-radius: 10px;
+  color: var(--text);
+  font-size: clamp(0.85rem, 2.5vw, 1.1rem);
+  font-weight: 600;
+  padding: clamp(0.35rem, 1.5vw, 0.5rem) clamp(0.7rem, 2.5vw, 1rem);
+  cursor: pointer;
+}
+
+.theme-toggle:hover {
+  border-color: #5b6dff;
 }
 
 h1 {
   margin: 0 0 0.4rem;
-  font-size: 3.2rem;
+  font-size: clamp(1.6rem, 5vw, 3.2rem);
 }
 
 h2 {
-  font-size: 1.8rem;
+  font-size: clamp(1.15rem, 3vw, 1.8rem);
   margin: 0;
   text-align: left;
 }
@@ -39,17 +88,19 @@ h2 {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
   margin: 2rem 0 1rem;
 }
 
 .reset-btn {
   background: none;
-  border: 2px solid #4b5468;
+  border: 2px solid var(--border-strong);
   border-radius: 10px;
   color: #f87171;
-  font-size: 1.1rem;
+  font-size: clamp(0.9rem, 2.2vw, 1.1rem);
   font-weight: 600;
-  padding: 0.5rem 1.1rem;
+  padding: clamp(0.4rem, 1.5vw, 0.5rem) clamp(0.8rem, 2.5vw, 1.1rem);
   cursor: pointer;
 }
 
@@ -64,14 +115,14 @@ h2 {
 }
 
 .remaining {
-  color: #9aa4b8;
-  font-size: 1.7rem;
+  color: var(--muted-text);
+  font-size: clamp(1rem, 3vw, 1.7rem);
   margin-bottom: 1rem;
 }
 
 .speed-toggle {
   display: inline-flex;
-  background: #161a24;
+  background: var(--panel-bg);
   border-radius: 12px;
   padding: 0.3rem;
   margin-bottom: 1.75rem;
@@ -82,10 +133,10 @@ h2 {
   background: none;
   border: none;
   border-radius: 9px;
-  color: #9aa4b8;
-  font-size: 1.4rem;
+  color: var(--muted-text);
+  font-size: clamp(0.95rem, 2.5vw, 1.4rem);
   font-weight: 600;
-  padding: 0.7rem 2rem;
+  padding: clamp(0.5rem, 2vw, 0.7rem) clamp(0.9rem, 4vw, 2rem);
   cursor: pointer;
 }
 
@@ -100,32 +151,33 @@ h2 {
 }
 
 .display {
-  background: #161a24;
-  border-radius: 20px;
-  padding: 2.5rem 2rem;
+  background: var(--panel-bg);
+  border-radius: clamp(12px, 3vw, 20px);
+  padding: clamp(1.25rem, 5vw, 2.5rem) clamp(0.75rem, 4vw, 2rem);
   margin-bottom: 2rem;
+  transition: background-color 0.2s ease;
 }
 
 .slots {
   display: flex;
   justify-content: center;
-  gap: 1.5rem;
+  gap: clamp(0.4rem, 2vw, 1.5rem);
 }
 
 .slot {
-  width: 200px;
-  height: 260px;
+  width: clamp(56px, 20vw, 200px);
+  height: clamp(74px, 26vw, 260px);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 10rem;
+  font-size: clamp(1.8rem, 9vw, 10rem);
   font-weight: 800;
   font-family: "SF Mono", "Courier New", monospace;
-  background: #0e1118;
-  border: 5px solid #343c4f;
-  border-radius: 20px;
-  color: #fff;
-  transition: transform 0.08s ease, border-color 0.2s ease;
+  background: var(--slot-bg);
+  border: clamp(3px, 0.8vw, 5px) solid var(--border-subtle);
+  border-radius: clamp(10px, 3vw, 20px);
+  color: var(--slot-text);
+  transition: transform 0.08s ease, border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
 }
 
 .slot.spinning {
@@ -137,9 +189,13 @@ h2 {
   transform: scale(1.05);
 }
 
+.slot.not-present {
+  border-color: #f87171;
+}
+
 .status-tag {
   margin-top: 1.25rem;
-  font-size: 2.4rem;
+  font-size: clamp(1.3rem, 4vw, 2.4rem);
   font-weight: 700;
   min-height: 1.3em;
 }
@@ -155,7 +211,8 @@ h2 {
 .decision-buttons {
   display: none;
   justify-content: center;
-  gap: 1.5rem;
+  flex-wrap: wrap;
+  gap: clamp(0.75rem, 3vw, 1.5rem);
   margin-top: 1.25rem;
 }
 
@@ -165,9 +222,9 @@ h2 {
 
 .btn {
   border: none;
-  border-radius: 14px;
-  padding: 1.2rem 2.4rem;
-  font-size: 1.8rem;
+  border-radius: clamp(8px, 2vw, 14px);
+  padding: clamp(0.8rem, 3vw, 1.2rem) clamp(1.2rem, 5vw, 2.4rem);
+  font-size: clamp(1.1rem, 3.5vw, 1.8rem);
   font-weight: 600;
   cursor: pointer;
   color: #fff;
@@ -189,8 +246,8 @@ h2 {
 
 .btn.draw {
   width: 100%;
-  padding: 1.6rem;
-  font-size: 2.2rem;
+  padding: clamp(1rem, 4vw, 1.6rem);
+  font-size: clamp(1.3rem, 4vw, 2.2rem);
   background: #5b6dff;
 }
 
@@ -206,14 +263,14 @@ h2 {
   list-style: none;
   margin: 0;
   padding: 0;
-  max-height: 280px;
+  max-height: min(280px, 40vh);
   overflow-y: auto;
   text-align: left;
 }
 
 .history-empty {
-  color: #6b7384;
-  font-size: 1.4rem;
+  color: var(--muted-text);
+  font-size: clamp(1rem, 2.5vw, 1.4rem);
   padding: 0.75rem 0;
 }
 
@@ -221,22 +278,23 @@ h2 {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  flex-wrap: wrap;
+  gap: clamp(0.5rem, 2vw, 1rem);
   padding: 0.85rem 0.5rem;
-  border-bottom: 1px solid #343c4f;
-  font-size: 1.4rem;
+  border-bottom: 1px solid var(--border-subtle);
+  font-size: clamp(1rem, 2.5vw, 1.4rem);
 }
 
 .history-number {
   font-family: "SF Mono", "Courier New", monospace;
   font-weight: 700;
-  min-width: 5.5rem;
+  min-width: clamp(3.5rem, 10vw, 5.5rem);
 }
 
 .history-status {
   flex: 1;
   text-align: center;
-  font-size: 1.2rem;
+  font-size: clamp(0.9rem, 2vw, 1.2rem);
   font-weight: 600;
 }
 
@@ -249,20 +307,21 @@ h2 {
 }
 
 .history-status.pending {
-  color: #9aa4b8;
+  color: var(--muted-text);
 }
 
 .correct-btn {
   background: none;
-  border: 2px solid #4b5468;
+  border: 2px solid var(--border-strong);
   border-radius: 10px;
-  color: #9aa4b8;
-  font-size: 1.1rem;
-  padding: 0.5rem 0.9rem;
+  color: var(--muted-text);
+  font-size: clamp(0.85rem, 2vw, 1.1rem);
+  padding: clamp(0.35rem, 1.5vw, 0.5rem) clamp(0.6rem, 2vw, 0.9rem);
   cursor: pointer;
 }
 
 .correct-btn:hover {
   border-color: #5b6dff;
-  color: #fff;
+  background: rgba(91, 109, 255, 0.12);
+  color: var(--text);
 }
