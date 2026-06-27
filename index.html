@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lottery Number Picker</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="card">
+    <h1>Lottery Number Picker</h1>
+
+    <div class="remaining" id="remaining">1200 / 1200 remaining</div>
+
+    <div class="speed-toggle" id="speedToggle">
+      <button class="speed-btn" data-speed="slow" id="slowBtn">Slow</button>
+      <button class="speed-btn" data-speed="fast" id="fastBtn">Fast</button>
+    </div>
+
+    <div class="display">
+      <div class="slots" id="slots">
+        <span class="slot" data-pos="0">&nbsp;</span>
+        <span class="slot" data-pos="1">&nbsp;</span>
+        <span class="slot" data-pos="2">&nbsp;</span>
+        <span class="slot" data-pos="3">&nbsp;</span>
+      </div>
+      <div class="status-tag" id="statusTag"></div>
+      <div class="decision-buttons" id="decisionButtons">
+        <button class="btn present" id="presentBtn">Present</button>
+        <button class="btn absent" id="notPresentBtn">Not Present</button>
+      </div>
+    </div>
+
+    <button class="btn draw" id="drawBtn">Draw Number</button>
+
+    <div class="history-header">
+      <h2>History</h2>
+      <button class="reset-btn" id="resetBtn">Reset All</button>
+    </div>
+    <ul class="history" id="historyList"></ul>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
